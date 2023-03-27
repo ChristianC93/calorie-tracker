@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :exercises
   resources :meals
   resources :users, only: [:create, :show, :index]
   
