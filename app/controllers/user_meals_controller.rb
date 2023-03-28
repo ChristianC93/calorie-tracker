@@ -8,7 +8,7 @@ class UserMealsController < ApplicationController
         #GET one user_meal (read)
     def show
         user_meals = @current_user.user_meals.find_by!(id: params[:id])
-        render json:  user_meals, status: :ok
+        render json: user_meals, status: :ok
     end
     
     #POST an meals to current user's user_meals (create)

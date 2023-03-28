@@ -1,4 +1,5 @@
 class ExerciseSerializer < ActiveModel::Serializer
+  belongs_to :user
+  
   attributes :id, :name, :calories_burned
-  has_one :user
 end
