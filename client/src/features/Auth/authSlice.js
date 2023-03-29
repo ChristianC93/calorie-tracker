@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-
 export const login = createAsyncThunk("user/login", async (body) => {
     const resp = await fetch("/login", {
         method: "POST",
@@ -9,11 +8,16 @@ export const login = createAsyncThunk("user/login", async (body) => {
         },
         body: JSON.stringify(body)
     })
-    return await resp.json();
+    if (resp.ok) {
+        return await resp.json();
+    } else {
+        const errorData = await resp.json();
+        throw new Error(errorData.errors.join(", "));
+    }
 });
 
 export const logout = createAsyncThunk("user/logout", async () => {
-    const resp = await fetch("/logout", {
+    await fetch("/logout", {
         method: "DELETE", 
     })
 });
@@ -33,6 +37,10 @@ const authSlice = createSlice({
     extraReducers: {
         [login.pending](state) {
             state.loading = true;
+        },
+        [login.rejected](state, action) {
+            state.error = action.error.message;
+            state.loading = false;
         },
         [login.fulfilled](state, action) {
             state.user = action.payload;

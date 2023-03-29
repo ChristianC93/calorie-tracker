@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../features/Auth/authSlice";
 
 function Login() {
     const dispatch = useDispatch();
-    const [errors, setErrors] = useState([]);
+    const error = useSelector((state) => state.auth.error);
     const [formData, setFormData] = useState({
         username: "",
         password: ""
@@ -20,6 +20,10 @@ function Login() {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(login(formData));
+        setFormData({
+            username: "",
+            password: ""
+        })
     }
 
     return (
@@ -44,7 +48,7 @@ function Login() {
                     <br />
                     <input className='submit' type="submit" value="Log In" />
                 </form>
-            {errors.length > 0 ? errors.map((err) => <p key={err}>{err}</p>) : []}
+            {error}
         </div>
     );
 };
