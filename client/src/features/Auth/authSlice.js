@@ -14,16 +14,18 @@ export const login = createAsyncThunk("user/login", async (body) => {
 
 export const logout = createAsyncThunk("user/logout", async () => {
     const resp = await fetch("/logout", {
-        method: "DELETE"
+        method: "DELETE", 
     })
-    return resp.json();
 });
 
-const userSlice = createSlice({
-    name: "user",
+
+
+const authSlice = createSlice({
+    name: "auth",
     initialState: {
-        entity: null,
-        loading: false
+        user: null,
+        loading: false,
+        error: null
     },
     reducers: {
         
@@ -33,18 +35,17 @@ const userSlice = createSlice({
             state.loading = true;
         },
         [login.fulfilled](state, action) {
-            state.entity = action.payload;
+            state.user = action.payload;
             state.loading = false;
         },
         [logout.pending](state) {
             state.loading = true;
         },
         [logout.fulfilled](state) {
-            state.entity = null;
+            state.user = null;
             state.loading = false;
         }
-
     }
 })
 
-export default userSlice.reducer;
+export default authSlice.reducer;

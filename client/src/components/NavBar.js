@@ -1,13 +1,13 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { logout } from '../features/users/userSlice';
+import { logout } from '../features/Auth/authSlice';
 
-function NavBar({ user }) {
+function NavBar() {
     const dispatch = useDispatch();
 
     const handleLogout = () => {
-        dispatch(logout(user));
+        dispatch(logout());
     }
     return (
         <nav>
