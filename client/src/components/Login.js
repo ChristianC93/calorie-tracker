@@ -1,6 +1,9 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { login } from "../features/users/userSlice";
 
 function Login() {
+    const dispatch = useDispatch();
     const [errors, setErrors] = useState([]);
     const [formData, setFormData] = useState({
         username: "",
@@ -13,6 +16,11 @@ function Login() {
             [e.target.name]: e.target.value
         });
     };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        dispatch(login(formData));
+    }
 
     return (
         <div className='form'>
@@ -35,7 +43,6 @@ function Login() {
                     </label>
                     <br />
                     <input className='submit' type="submit" value="Log In" />
-                    <p>Don't have an account?</p> <a href="/signup" onClick={ handleClick }>Sign Up</a>
                 </form>
             {errors.length > 0 ? errors.map((err) => <p key={err}>{err}</p>) : []}
         </div>

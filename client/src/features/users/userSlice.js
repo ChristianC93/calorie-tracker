@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-export const login = createAsyncThunk("/login", async (body) => {
+export const login = createAsyncThunk("user/login", async (body) => {
     const resp = await fetch("/login", {
         method: "POST",
         headers: {
@@ -11,7 +11,7 @@ export const login = createAsyncThunk("/login", async (body) => {
     return await resp.json();
 });
 
-export const logout = createAsyncThunk("/logout", async () => {
+export const logout = createAsyncThunk("user/logout", async () => {
     const resp = await fetch("/logout", {
         method: "DELETE"
     })
@@ -21,7 +21,7 @@ export const logout = createAsyncThunk("/logout", async () => {
 const userSlice = createSlice({
     name: "user",
     initialState: {
-        user: null,
+        entity: null,
         loading: false
     },
     reducers: {
@@ -32,7 +32,7 @@ const userSlice = createSlice({
             state.loading = true;
         },
         [login.fulfilled](state, action) {
-            state.user = action.payload;
+            state.entity = action.payload;
             state.loading = false;
         }
     }
