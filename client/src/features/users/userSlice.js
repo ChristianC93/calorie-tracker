@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
+
 export const login = createAsyncThunk("user/login", async (body) => {
     const resp = await fetch("/login", {
         method: "POST",
@@ -34,7 +35,15 @@ const userSlice = createSlice({
         [login.fulfilled](state, action) {
             state.entity = action.payload;
             state.loading = false;
+        },
+        [logout.pending](state) {
+            state.loading = true;
+        },
+        [logout.fulfilled](state) {
+            state.entity = null;
+            state.loading = false;
         }
+
     }
 })
 
