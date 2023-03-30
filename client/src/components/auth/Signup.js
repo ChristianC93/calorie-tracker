@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { signup } from '../../features/Auth/authSlice';
+import { signup, resetError } from '../../features/Auth/authSlice';
 
 function SignUp() {
   const [formData, setFormData] = useState({
@@ -11,6 +12,13 @@ function SignUp() {
 
   const error = useSelector((state) => state.auth.error);  
   const dispatch = useDispatch();
+
+  //reset error messages when component unmounts
+  useEffect(() => {
+    return () => {
+        dispatch(resetError());
+    }
+}, [dispatch])
   
   const handleChange = (e) => {
     setFormData({

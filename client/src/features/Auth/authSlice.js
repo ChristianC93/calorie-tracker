@@ -30,10 +30,20 @@ export const login = createAsyncThunk("user/login", async (body) => {
         return await resp.json();
     } else {
         const errorData = await resp.json();
-        console.log(errorData)
         throw new Error(errorData.errors.join(", "));
     }
 });
+
+//get logged in user
+export const myPage = createAsyncThunk("user/my-page", async () => {
+    const resp = await fetch("/my-page")
+    if (resp.ok) {
+        return await resp.json();
+    } else {
+        const errorData = await resp.json();
+        throw new Error(errorData.errors.join(", "))
+    }
+})
 
 //logout user frontend
 export const logout = createAsyncThunk("user/logout", async () => {
@@ -77,6 +87,13 @@ const authSlice = createSlice({
         [login.fulfilled](state, action) {
             state.user = action.payload;
             state.loading = false;
+        },
+        [myPage.pending](state) {
+            state.loading = true;
+        },
+        [myPage.fulfilled](state, action) {
+            state.loading = false;
+            state.user = action.payload;
         },
         [logout.pending](state) {
             state.loading = true;

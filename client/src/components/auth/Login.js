@@ -12,7 +12,7 @@ function Login() {
         password: ""
     });
 
-    //reset error messages when navigating away from signup or login
+    //reset error messages when component unmounts
     useEffect(() => {
         return () => {
             dispatch(resetError());
