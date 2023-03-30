@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../features/Auth/authSlice";
+import { login } from "../../features/Auth/authSlice";
 
 function Login() {
     const dispatch = useDispatch();
@@ -48,7 +48,7 @@ function Login() {
                     <br />
                     <input className='submit' type="submit" value="Log In" />
                 </form>
-            {error}
+            { error }
         </div>
     );
 };
