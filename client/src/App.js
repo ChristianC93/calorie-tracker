@@ -9,10 +9,6 @@ import SignUp from './components/auth/SignUp';
 function App() {
   const user = useSelector((state) => state.auth.user);
   
-  // if (!user) {
-  //   return <Login />
-  // }
-
   return (
     <div className="App">
       { user && <NavBar /> }

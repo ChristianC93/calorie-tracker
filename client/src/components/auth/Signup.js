@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { signup } from '../../features/Auth/authSlice';
 
 function SignUp() {
@@ -12,8 +11,7 @@ function SignUp() {
 
   const error = useSelector((state) => state.auth.error);  
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
+  
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -25,8 +23,13 @@ function SignUp() {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(signup(formData));
-    navigate('/')
+    setFormData({
+        username: "",
+        password: "",
+        password_confirmation: ""
+    })  
   };
+  console.log(error)
 
 
   return (
@@ -44,7 +47,7 @@ function SignUp() {
         <br />
         <label>
           Confirm Password:
-          <input type="password" name="password_confirmation" onChange={ handleChange } value={ formData.passwordConfirmation } />
+          <input type="password" name="password_confirmation" onChange={ handleChange } value={ formData.password_confirmation } />
         </label>
         <br />
         <input type="submit" value="Sign Up" />
@@ -52,6 +55,7 @@ function SignUp() {
       { error }
     </div>
   );
+  
 }
 
 export default SignUp;

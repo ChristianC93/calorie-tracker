@@ -30,6 +30,7 @@ export const login = createAsyncThunk("user/login", async (body) => {
         return await resp.json();
     } else {
         const errorData = await resp.json();
+        console.log(errorData)
         throw new Error(errorData.errors.join(", "));
     }
 });
@@ -54,6 +55,17 @@ const authSlice = createSlice({
         
     },
     extraReducers: {
+        [signup.pending](state) {
+            state.loading = true;
+        },
+        [signup.rejected](state, action) {
+            state.loading = false;
+            state.error = action.error.message;
+        },
+        [signup.fulfilled](state, action) {
+            state.loading = false;
+            state.user = action.payload;
+        },
         [login.pending](state) {
             state.loading = true;
         },
