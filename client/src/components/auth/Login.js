@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { login } from "../../features/Auth/authSlice";
+import { login, resetError } from "../../features/Auth/authSlice";
 
 function Login() {
     const dispatch = useDispatch();
@@ -10,6 +11,13 @@ function Login() {
         username: "",
         password: ""
     });
+
+    //reset error messages when navigating away from signup or login
+    useEffect(() => {
+        return () => {
+            dispatch(resetError());
+        }
+    }, [dispatch])
 
     const handleChange = (e) => {
         setFormData({

@@ -42,8 +42,6 @@ export const logout = createAsyncThunk("user/logout", async () => {
     })
 });
 
-
-
 const authSlice = createSlice({
     name: "auth",
     initialState: {
@@ -52,7 +50,10 @@ const authSlice = createSlice({
         error: null
     },
     reducers: {
-        
+        //reset error messages when navigating aweay from component
+        resetError: (state) => {
+            state.error = null;
+        }
     },
     extraReducers: {
         [signup.pending](state) {
@@ -85,6 +86,8 @@ const authSlice = createSlice({
             state.loading = false;
         }
     }
-})
+});
+
+export const { resetError } = authSlice.actions;
 
 export default authSlice.reducer;
