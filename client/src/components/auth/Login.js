@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { login } from "../../features/Auth/authSlice";
 
 function Login() {
@@ -47,6 +48,7 @@ function Login() {
                     </label>
                     <br />
                     <input className='submit' type="submit" value="Log In" />
+                    <Link to="/signup"> Sign Up </Link>
                 </form>
             { error }
         </div>

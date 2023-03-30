@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { signup } from '../../features/Auth/authSlice';
 
-function SignUpForm() {
+function SignUp() {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -25,7 +25,7 @@ function SignUpForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(signup(formData));
-    navigate('/login')
+    navigate('/')
   };
 
 
@@ -49,9 +49,9 @@ function SignUpForm() {
         <br />
         <input type="submit" value="Sign Up" />
       </form>
-      { errors }
+      { error }
     </div>
   );
 }
 
-export default SignUpForm;
+export default SignUp;
