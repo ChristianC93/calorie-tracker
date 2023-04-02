@@ -60,7 +60,7 @@ const authSlice = createSlice({
         error: null
     },
     reducers: {
-        //reset error messages when navigating aweay from component
+        //reset error messages when navigating away from component
         resetError: (state) => {
             state.error = null;
         }

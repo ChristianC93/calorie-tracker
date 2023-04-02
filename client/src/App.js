@@ -6,6 +6,7 @@ import NavBar from './components/NavBar';
 import SignUp from './components/auth/SignUp';
 import { useEffect } from 'react';
 import { myPage } from './features/Auth/authSlice';
+import MealInput from './components/meals/MealInput';
 
 
 function App() {
@@ -14,8 +15,8 @@ function App() {
   
   useEffect(() => {
     dispatch(myPage());
-  }, [dispatch])
-  
+  }, [ dispatch ])
+
   return (
     <div className="App">
       { user && <NavBar /> }
@@ -23,6 +24,7 @@ function App() {
         { user ? (
           <>
             <Route path='/home' />
+            <Route path='/meals/new' element= { <MealInput /> } />
           </>
         ) : (
           <>
