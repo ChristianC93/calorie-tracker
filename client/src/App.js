@@ -7,6 +7,7 @@ import SignUp from './components/auth/SignUp';
 import { useEffect } from 'react';
 import { myPage, resetError } from './features/Auth/authSlice';
 import MealInput from './components/meals/MealInput';
+import ExerciseInput from './components/exercises/ExerciseInput';
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <>
             <Route path='/home' />
             <Route path='/meals/new' element= { <MealInput /> } />
+            <Route path='/exercises/new' element= { <ExerciseInput />} />
           </>
         ) : (
           <>
