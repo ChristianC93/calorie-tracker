@@ -40,7 +40,7 @@ function MealInput() {
     return (
         <div>
             <h1>Add Today's Meals</h1>
-            <form onSubmit={ handleSubmit }>
+            <form className='form' onSubmit={ handleSubmit }>
                 <div>
                     <label htmlFor="name">Name:</label>
                     <input type="text" id="name" name="name" value={ formData.name } onChange={ handleChange } />
