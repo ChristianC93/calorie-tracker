@@ -6,5 +6,4 @@ class Meal < ApplicationRecord
     
     validates :name, :calories, presence: true
     validates :calories, numericality: { only_integer: true }
-
 end

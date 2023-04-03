@@ -33,7 +33,7 @@ function Login() {
             username: "",
             password: ""
         })
-    }
+    };
 
     return (
         <div className='form'>

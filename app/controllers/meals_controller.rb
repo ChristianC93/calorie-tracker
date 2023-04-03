@@ -14,12 +14,11 @@ class MealsController < ApplicationController
 
     # POST /meals
     def create
-      @meal = @current_user.meals.build(meal_params)
-      if @meal.save
+      puts "meal_params: #{meal_params.inspect}"
+      @meal = @current_user.meals.create!(meal_params)
+      if meal.save
         UserMeal.create!(user: @current_user, meal: @meal, date_time: DateTime.now)
         render json: @meal, status: :created
-      else
-        render json: @meal.errors, status: :unprocessable_entity
       end
     end
 
@@ -44,6 +43,6 @@ class MealsController < ApplicationController
       end
 
       def meal_params
-        params.permit(:name, :calories, :image)
+        params.permit(:name, :calories, :image, :user_id)
       end
 end

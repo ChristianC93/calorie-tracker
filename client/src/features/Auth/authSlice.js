@@ -62,6 +62,7 @@ const authSlice = createSlice({
     reducers: {
         //reset error messages when navigating away from component
         resetError: (state) => {
+            state.loading = false;
             state.error = null;
         }
     },
@@ -90,6 +91,10 @@ const authSlice = createSlice({
         },
         [myPage.pending](state) {
             state.loading = true;
+        },
+        [myPage.rejected](state, action) {
+            state.loading = false;
+            state.error = action.error.message
         },
         [myPage.fulfilled](state, action) {
             state.loading = false;

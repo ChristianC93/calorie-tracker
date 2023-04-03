@@ -5,18 +5,23 @@ import Login from './components/auth/Login';
 import NavBar from './components/NavBar';
 import SignUp from './components/auth/SignUp';
 import { useEffect } from 'react';
-import { myPage } from './features/Auth/authSlice';
+import { myPage, resetError } from './features/Auth/authSlice';
 import MealInput from './components/meals/MealInput';
 
 
 function App() {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(resetError());
+  }, [ dispatch ])
   
+  //auto login
   useEffect(() => {
     dispatch(myPage());
   }, [ dispatch ])
-
+  
   return (
     <div className="App">
       { user && <NavBar /> }

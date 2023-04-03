@@ -1,6 +1,10 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addMeal, clearErrors } from "../../features/meals/mealsSlice";
 
-function MealInput() {   
+function MealInput() {
+    const dispatch = useDispatch();
+    const error = useSelector((state) => state.meals.error);   
     const [formData, setFormData] = useState({
         name: "",
         calories: "",
@@ -18,28 +22,42 @@ function MealInput() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        dispatch(clearErrors());
+        const data = new FormData();
+
+        data.append("meal[name]", e.target.name.value);
+        data.append("meal[calories]", e.target.calories.value);
+        data.append("meal[image]", e.target.image.files[0]);
+       
+        dispatch(addMeal(data));
+        setFormData({
+            name: "",
+            calories: "",
+            image: null
+        });
     }
 
     return (
         <div>
-            <h1>Add a Meal</h1>
+            <h1>Add Today's Meals</h1>
             <form onSubmit={ handleSubmit }>
                 <div>
-                    <label htmlFor="meal-name">Meal Name:</label>
-                    <input type="text" id="meal-name" name="mealName" value={ formData.mealName } onChange={ handleChange } />
+                    <label htmlFor="name">Name:</label>
+                    <input type="text" id="name" name="name" value={ formData.name } onChange={ handleChange } />
                 </div>
                 <div>
-                    <label htmlFor="calorie-count">Calories:</label>
+                    <label htmlFor="calories">Calories:</label>
                     <input type="number" id="calories" name="calories" value={ formData.calories } onChange={ handleChange } />
                 </div>
                 <div>
-                    <label htmlFor="image-upload">Upload an image:</label>
-                    <input type="file" id="image-upload" name="image-upload" accept="image/*" onChange={ handleChange } />
+                    <label htmlFor="image">Upload an image:</label>
+                    <input type="file" id="image" name="image" accept="image/*" onChange={ handleChange } />
                 </div>
                 <div>
                     <input type="submit" value="Add Meal" />
                 </div>
             </form>
+            { error }
         </div>
     )
 };

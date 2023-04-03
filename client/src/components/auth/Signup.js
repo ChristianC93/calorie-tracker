@@ -16,9 +16,9 @@ function SignUp() {
   //reset error messages when component unmounts
   useEffect(() => {
     return () => {
-        dispatch(resetError());
+      dispatch(resetError());
     }
-}, [dispatch])
+  }, [dispatch])
   
   const handleChange = (e) => {
     setFormData({
