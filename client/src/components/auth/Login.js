@@ -14,9 +14,7 @@ function Login() {
 
     //reset error messages when component unmounts
     useEffect(() => {
-        return () => {
-            dispatch(resetError());
-        }
+        dispatch(resetError());        
     }, [dispatch])
 
     const handleChange = (e) => {
@@ -58,7 +56,7 @@ function Login() {
                     <input className='submit' type="submit" value="Log In" />
                     <Link to="/signup"> Sign Up </Link>
                 </form>
-            { error }
+                { error }
         </div>
     );
 };

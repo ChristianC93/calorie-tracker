@@ -15,10 +15,10 @@ class MealsController < ApplicationController
     # POST /meals
     def create
       puts "meal_params: #{meal_params.inspect}"
-      @meal = @current_user.meals.create!(meal_params)
+      meal = Meal.create!(meal_params)
       if meal.save
-        UserMeal.create!(user: @current_user, meal: @meal, date_time: DateTime.now)
-        render json: @meal, status: :created
+        UserMeal.create!(user: @current_user, meal: meal, date_time: DateTime.now)
+        render json: meal, status: :created
       end
     end
 
@@ -43,6 +43,6 @@ class MealsController < ApplicationController
       end
 
       def meal_params
-        params.permit(:name, :calories, :image, :user_id)
+        params.require(:meal).permit(:name, :calories, :image)
       end
 end

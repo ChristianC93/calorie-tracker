@@ -1,6 +1,10 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addExercise } from "../../features/exercises/exerciseSlice";
 
 function ExerciseInput() {
+    const dispatch = useDispatch();
+    const error = useSelector((state) => state.exercises.error);
     const [formData, setFormData] = useState({
         name: "",
         calories_burned: ""
@@ -13,21 +17,32 @@ function ExerciseInput() {
         }); 
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        dispatch(addExercise(formData));
+        setFormData({
+            name: "",
+            calories_burned: ""
+        });
+    };
+
     return (
         <div>
-            <form className="form" >
+            <h1>Add Today's Exercises</h1>
+            <form className="form" onSubmit={ handleSubmit } >
                 <label>
                     Name:
-                    <input type="name" name="name" onChange={ handleChange } value={ formData.name } />
+                    <input type="text" name="name" onChange={ handleChange } value={ formData.name } />
                 </label>
                 <br />
                 <label>
                     Calories Burned:
-                    <input type="password" name="calories_burned" onChange={ handleChange } value={ formData.calories_burned } />
+                    <input type="number" name="calories_burned" onChange={ handleChange } value={ formData.calories_burned } />
                 </label>
                 <br />
                 <input type="submit" value="Submit" />
             </form>
+            { error }
         </div>
     )
 };

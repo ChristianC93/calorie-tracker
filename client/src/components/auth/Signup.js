@@ -37,12 +37,10 @@ function SignUp() {
         password_confirmation: ""
     })  
   };
-  console.log(error)
-
-
+  
   return (
     <div>
-      <form onSubmit={ handleSubmit }>
+      <form className='form' onSubmit={ handleSubmit }>
         <label>
           Username:
           <input type="username" name="username" onChange={ handleChange } value={ formData.username } />

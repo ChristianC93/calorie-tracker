@@ -88,6 +88,7 @@ const authSlice = createSlice({
         [login.fulfilled](state, action) {
             state.user = action.payload;
             state.loading = false;
+            state.error = null;
         },
         [myPage.pending](state) {
             state.loading = true;
@@ -99,6 +100,7 @@ const authSlice = createSlice({
         [myPage.fulfilled](state, action) {
             state.loading = false;
             state.user = action.payload;
+            state.error = null;
         },
         [logout.pending](state) {
             state.loading = true;
@@ -106,6 +108,7 @@ const authSlice = createSlice({
         [logout.fulfilled](state) {
             state.user = null;
             state.loading = false;
+            state.error = null;
         }
     }
 });

@@ -18,7 +18,7 @@ class ExercisesController < ApplicationController
     @exercise = Exercise.new(exercise_params)
 
     if @exercise.save
-      render json: @exercise, status: :created, location: @exercise
+      render json: @exercise, status: :created
     else
       render json: @exercise.errors, status: :unprocessable_entity
     end
@@ -45,6 +45,6 @@ class ExercisesController < ApplicationController
     end
 
     def exercise_params
-      params.permit(:user_id, :name, :calories_burned)
+      params.require(:exercise).permit(:user_id, :name, :calories_burned)
     end
 end
