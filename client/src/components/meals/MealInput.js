@@ -27,7 +27,9 @@ function MealInput() {
 
         data.append("meal[name]", e.target.name.value);
         data.append("meal[calories]", e.target.calories.value);
-        data.append("meal[image]", e.target.image.files[0]);
+        if (e.target.image.files[0] !== undefined ) {
+            data.append("meal[image]", e.target.image.files[0]);
+        }
        
         dispatch(addMeal(data));
         setFormData({
@@ -40,7 +42,7 @@ function MealInput() {
     return (
         <div>
             <h1>Add Today's Meals</h1>
-            <form className='form' onSubmit={ handleSubmit }>
+            <form className='form' encType="multipart/form-data" onSubmit={ handleSubmit }>
                 <div>
                     <label htmlFor="name">Name:</label>
                     <input type="text" id="name" name="name" value={ formData.name } onChange={ handleChange } />

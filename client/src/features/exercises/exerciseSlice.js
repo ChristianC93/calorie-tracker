@@ -1,7 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { addMeal } from "../meals/mealsSlice";
 
-export const addExercise = createAsyncThunk("exercise/addExercise", async (body) => {
+export const addExercise = createAsyncThunk("exercise/addExercise", async (body, { getState }) => {
+    const { auth } = getState();
+    const user_id = auth.user.id;
+    body.user_id = user_id;
+    
     const resp = await fetch("/exercises", {
         method: "POST",
         headers: {

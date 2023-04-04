@@ -15,6 +15,7 @@ export const addMeal = createAsyncThunk("meal/addMeal", async (body, { getState 
         return await resp.json();
     } else {
         const errorData = await resp.json();
+        console.log(errorData)
         throw new Error(errorData.errors.join(", "));
     }
 });
