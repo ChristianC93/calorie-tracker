@@ -15,12 +15,10 @@ class ExercisesController < ApplicationController
 
   # POST /exercises
   def create
-    @exercise = Exercise.new(exercise_params)
+    exercise = Exercise.new(exercise_params)
 
-    if @exercise.save
-      render json: @exercise, status: :created
-    else
-      render json: @exercise.errors, status: :unprocessable_entity
+    if exercise.save!
+      render json: exercise, status: :created
     end
   end
 

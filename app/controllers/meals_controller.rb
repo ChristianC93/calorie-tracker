@@ -16,7 +16,7 @@ class MealsController < ApplicationController
     def create
       puts "meal_params: #{meal_params.inspect}"
       meal = Meal.new(meal_params)
-      if meal.save!
+      if meal.save! 
         UserMeal.create!(user: @current_user, meal: meal, date_time: DateTime.now)
         render json: meal, status: :created
       end
