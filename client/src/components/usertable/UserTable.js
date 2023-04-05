@@ -3,7 +3,7 @@ function UserTable({ user }) {
         <div>
             <h1>Welcome, { user.username }</h1>
 
-            <div>
+            <div className="table-container">
                 <h2>{user.username}'s Meals</h2>
                 <table>
                     <thead>
