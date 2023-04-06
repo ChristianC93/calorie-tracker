@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :meals
   resources :users, only: [:create, :show, :index]
   
+  get "/users/:id/meals", to: "meals#current_user_meals"
   post "/signup", to: "users#create"
   get "/my-page", to: "users#show"
   post "/login", to: "sessions#create"

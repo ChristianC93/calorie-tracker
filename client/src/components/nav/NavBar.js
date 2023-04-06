@@ -12,7 +12,7 @@ function NavBar() {
 
     return (
         <nav>
-            <Link to="/home">Home</Link>
+            <Link to="/">Home</Link>
             <Link to="/meals/new">Add Today's Meals</Link>
             <Link to="/exercises/new">Add Today's Exercises</Link>
             <Link to="/" onClick={ handleLogout }>Logout</Link>

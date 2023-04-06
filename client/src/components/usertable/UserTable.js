@@ -11,14 +11,22 @@ function UserTable({ user }) {
                         <th>Meal Name</th>
                         <th>Calories</th>
                         <th>Date</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {user.meals.map((meal, index) => (
-                        <tr key={index}>
+                    {user.meals.map((meal) => (
+                        <tr key={meal.id}>
                         <td>{meal.name}</td>
                         <td>{meal.calories}</td>
                         <td>{new Date(meal.created_at).toLocaleDateString()}</td>
+                        <td>
+                            <button>Edit</button>
+                        </td>
+                        <td>
+                            <button>Delete</button>
+                        </td>
                         </tr>
                     ))}
                     </tbody>
@@ -29,16 +37,24 @@ function UserTable({ user }) {
                     <thead>
                     <tr>
                         <th>Exercise</th>
-                        <th>Date</th>
                         <th>Calories Burned</th>
+                        <th>Date</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {user.exercises.map((exercise, index) => (
-                        <tr key={index}>
+                    {user.exercises.map((exercise) => (
+                        <tr key={exercise.id}>
                         <td>{exercise.name}</td>
                         <td>{exercise.calories_burned}</td>
                         <td>{new Date(exercise.created_at).toLocaleDateString()}</td>
+                        <td>
+                            <button>Edit</button>
+                        </td>
+                        <td>
+                            <button>Delete</button>
+                        </td>
                         </tr>
                     ))}
                     </tbody>

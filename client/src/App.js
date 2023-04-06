@@ -34,7 +34,7 @@ function App() {
       <Routes>
         { user ? (
           <>
-            <Route path='/home' element= { <UserTable user={ user } /> } />
+            <Route path='/' element= { <UserTable user={ user } /> } />
             <Route path='/meals/new' element= { <MealInput /> } />
             <Route path='/exercises/new' element= { <ExerciseInput /> } />
           </>

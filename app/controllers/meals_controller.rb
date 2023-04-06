@@ -36,6 +36,11 @@ class MealsController < ApplicationController
       @meal.destroy
     end
 
+    #GET logged in users meals
+    def current_user_meals
+      render json: @current_user.meals.all, status: :ok 
+    end
+
     private
     
       def set_meal
