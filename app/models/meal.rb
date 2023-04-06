@@ -1,7 +1,7 @@
 class Meal < ApplicationRecord
     has_one_attached :image
 
-    has_many :user_meals
+    has_many :user_meals, dependent: :destroy
     has_many :users, through: :user_meals
     
     validates :name, :calories, presence: true

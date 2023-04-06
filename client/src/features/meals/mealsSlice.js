@@ -30,6 +30,9 @@ const mealsSlice = createSlice({
     },
 
     reducers: {
+        setUserMeals(state, action) {
+            state.entities = action.payload;
+        }
 
     },
     extraReducers: {
@@ -49,5 +52,7 @@ const mealsSlice = createSlice({
         }
     }
 });
+
+export const { setUserMeals } = mealsSlice.actions;
 
 export default mealsSlice.reducer;

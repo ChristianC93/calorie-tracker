@@ -9,11 +9,11 @@ import { myPage } from './features/Auth/authSlice';
 import MealInput from './components/meals/MealInput';
 import ExerciseInput from './components/exercises/ExerciseInput';
 import UserTable from './components/usertable/UserTable';
+import Meals from './components/meals/Meals';
 
 
 function App() {
   const user = useSelector((state) => state.auth.user);
-  console.log(user)
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -30,11 +30,12 @@ function App() {
   
   return (
     <div className="App">
-      { user && <NavBar /> }
+      { user && <NavBar user= { user } /> }
       <Routes>
         { user ? (
           <>
             <Route path='/' element= { <UserTable user={ user } /> } />
+            <Route path={`/users/${ user.id }/meals`} element={ <Meals user={ user } /> }/> 
             <Route path='/meals/new' element= { <MealInput /> } />
             <Route path='/exercises/new' element= { <ExerciseInput /> } />
           </>
