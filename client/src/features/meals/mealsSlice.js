@@ -28,6 +28,22 @@ export const deleteMeal = createAsyncThunk("meal/deleteMeal", async (id) => {
     return id;
 });
 
+export const editMeal = createAsyncThunk("meal/editMeal", async (meal) => {
+    const resp = await fetch(`/meals/${meal.id}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type":"application/json"
+        },
+        body: JSON.stringify(meal)
+    });
+    if (resp.ok) {
+        return await resp.json();
+    } else {
+        const errorData = await resp.json();
+        throw new Error(errorData.errors.join(", "));
+    }
+});
+
 export const clearErrors = createAction("meal/clearErrors");
 
 const mealsSlice = createSlice({

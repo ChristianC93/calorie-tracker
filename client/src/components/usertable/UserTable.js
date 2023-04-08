@@ -1,9 +1,20 @@
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { removeMealFromUser } from "../../features/Auth/authSlice";
 import { deleteMeal } from "../../features/meals/mealsSlice";
+import EditMeal from "../meals/EditMeal";
 
 function UserTable({ user }) {
     const dispatch = useDispatch();
+    const [editingMealId, setEditingMealId] = useState(null);
+
+    const handleEdit = (meal) => {
+        setEditingMealId(meal.id);
+    };
+    console.log(editingMealId)
+    const handleCloseEdit = () => {
+        setEditingMealId(null);
+    };
 
     const handleDelete = (id) => {
         dispatch(deleteMeal(id))
@@ -30,17 +41,26 @@ function UserTable({ user }) {
                     </thead>
                     <tbody>
                     {user.meals.map((meal) => (
-                        <tr key={meal.id}>
-                        <td>{meal.name}</td>
-                        <td>{meal.calories}</td>
-                        <td>{new Date(meal.created_at).toLocaleDateString()}</td>
-                        <td>
-                            <button>Edit</button>
-                        </td>
-                        <td>
-                            <button onClick={() => handleDelete(meal.id) }>Delete</button>
-                        </td>
-                        </tr>
+                        <React.Fragment key={meal.id}>
+                            <tr key={meal.id}>
+                            <td>{meal.name}</td>
+                            <td>{meal.calories}</td>
+                            <td>{new Date(meal.created_at).toLocaleDateString()}</td>
+                            <td>
+                                <button onClick={() => handleEdit(meal)}>Edit</button>
+                            </td>
+                            <td>
+                                <button onClick={() => handleDelete(meal.id) }>Delete</button>
+                            </td>
+                            </tr>
+                            {editingMealId === meal.id && (
+                                <tr>
+                                    <td colSpan={5}>
+                                        <EditMeal meal={ meal } onClose={ handleCloseEdit } />
+                                    </td>
+                                </tr>
+                            )}
+                        </React.Fragment>
                     ))}
                     </tbody>
                 </table>
