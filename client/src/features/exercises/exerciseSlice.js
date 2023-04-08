@@ -1,11 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 
-export const addExercise = createAsyncThunk("exercise/addExercise", async (body, { getState }) => {
-    const { auth } = getState();
-    const user_id = auth.user.id;
-    body.user_id = user_id;
-
+export const addExercise = createAsyncThunk("exercise/addExercise", async (body) => {
+   
     const resp = await fetch("/exercises", {
         method: "POST",
         headers: {
@@ -19,6 +16,17 @@ export const addExercise = createAsyncThunk("exercise/addExercise", async (body,
         const errorData = await resp.json();
         throw new Error(errorData.errors.join(", "));
     }
+});
+
+export const removeExercise = createAsyncThunk("exercise/removeExercise", async (id) => {
+    const resp = await fetch(`/exercises/${id}`, {
+        method: "DELETE"
+    });
+    if (!resp.ok) {
+        const errorData = await resp.json();
+        throw new Error(errorData.errors.join(", "));
+    }
+    return id;
 });
 
 const exerciseSlice = createSlice({
@@ -44,6 +52,18 @@ const exerciseSlice = createSlice({
             state.loading = false;
             state.error = null;
             state.entities = [...state.entities, action.payload]
+        },
+        [removeExercise.pending](state) {
+            state.loading = true;
+            state.error = null;
+        },
+        [removeExercise.fulfilled](state, action) {
+            state.loading = false;
+            state.entities = state.entities.filter((entity) => entity.id !== action.payload);
+        },
+        [removeExercise.rejected](state, action) {
+            state.loading = false;
+            state.error = action.error.message;
         }
     }
 });

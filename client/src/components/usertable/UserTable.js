@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { removeMealFromUser } from "../../features/Auth/authSlice";
+import { removeExerciseFromUser, removeMealFromUser } from "../../features/Auth/authSlice";
+import { removeExercise } from "../../features/exercises/exerciseSlice";
 import { deleteMeal } from "../../features/meals/mealsSlice";
 import EditMeal from "../meals/EditMeal";
 
@@ -16,10 +17,17 @@ function UserTable({ user }) {
         setEditingMealId(null);
     };
 
-    const handleDelete = (id) => {
+    const handleMealDelete = (id) => {
         dispatch(deleteMeal(id))
         .then((id) => {
             dispatch(removeMealFromUser(id))
+        });
+    };
+
+    const handleExerciseDelete = (id) => {
+        dispatch(removeExercise(id))
+        .then((id) => {
+            dispatch(removeExerciseFromUser(id))
         });
     };
 
@@ -50,7 +58,7 @@ function UserTable({ user }) {
                                 <button onClick={() => handleEdit(meal)}>Edit</button>
                             </td>
                             <td>
-                                <button onClick={() => handleDelete(meal.id) }>Delete</button>
+                                <button onClick={() => handleMealDelete(meal.id) }>Delete</button>
                             </td>
                             </tr>
                             {editingMealId === meal.id && (
@@ -72,7 +80,6 @@ function UserTable({ user }) {
                         <th>Exercise</th>
                         <th>Calories Burned</th>
                         <th>Date</th>
-                        <th>Edit</th>
                         <th>Delete</th>
                     </tr>
                     </thead>
@@ -83,10 +90,7 @@ function UserTable({ user }) {
                         <td>{exercise.calories_burned}</td>
                         <td>{new Date(exercise.created_at).toLocaleDateString()}</td>
                         <td>
-                            <button>Edit</button>
-                        </td>
-                        <td>
-                            <button>Delete</button>
+                            <button onClick={() => handleExerciseDelete(exercise.id)}>Delete</button>
                         </td>
                         </tr>
                     ))}

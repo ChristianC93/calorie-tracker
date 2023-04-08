@@ -79,6 +79,10 @@ const authSlice = createSlice({
         },
         addExerciseToUser: (state, action) => {
             state.user.exercises.push(action.payload);
+        },
+        removeExerciseFromUser: (state, action) => {
+            const index = state.user.exercises.findIndex((exercise) => exercise.id === action.payload);
+            state.user.exercises.splice(index, 1);
         }
     },
     extraReducers: {
@@ -128,6 +132,6 @@ const authSlice = createSlice({
     }
 });
 
-export const { resetError, addMealToUser, addUpdatedMealToUser, removeMealFromUser, addExerciseToUser } = authSlice.actions;
+export const { resetError, addMealToUser, addUpdatedMealToUser, removeMealFromUser, addExerciseToUser, removeExerciseFromUser } = authSlice.actions;
 
 export default authSlice.reducer;
