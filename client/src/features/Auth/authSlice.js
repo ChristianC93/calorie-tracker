@@ -76,6 +76,9 @@ const authSlice = createSlice({
         addUpdatedMealToUser: (state, action) => {
             const index = state.user.meals.findIndex((meal) => meal.id === action.payload.id);
             state.user.meals.splice(index, 1, action.payload);
+        },
+        addExerciseToUser: (state, action) => {
+            state.user.exercises.push(action.payload);
         }
     },
     extraReducers: {
@@ -125,6 +128,6 @@ const authSlice = createSlice({
     }
 });
 
-export const { resetError, addMealToUser, addUpdatedMealToUser, removeMealFromUser } = authSlice.actions;
+export const { resetError, addMealToUser, addUpdatedMealToUser, removeMealFromUser, addExerciseToUser } = authSlice.actions;
 
 export default authSlice.reducer;

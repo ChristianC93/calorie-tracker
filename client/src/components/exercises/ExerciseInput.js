@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { addExerciseToUser } from "../../features/Auth/authSlice";
 import { addExercise } from "../../features/exercises/exerciseSlice";
 
 function ExerciseInput() {
@@ -19,11 +20,15 @@ function ExerciseInput() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(addExercise(formData));
-        setFormData({
-            name: "",
-            calories_burned: ""
-        });
+        dispatch(addExercise(formData))
+        .then((data) => {
+            const exercise = data.payload
+            dispatch(addExerciseToUser(exercise))
+            setFormData({
+                name: "",
+                calories_burned: ""
+            });
+        })
     };
 
     return (

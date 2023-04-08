@@ -11,7 +11,7 @@ function UserTable({ user }) {
     const handleEdit = (meal) => {
         setEditingMealId(meal.id);
     };
-    console.log(editingMealId)
+   
     const handleCloseEdit = () => {
         setEditingMealId(null);
     };
