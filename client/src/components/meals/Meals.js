@@ -4,22 +4,19 @@ import { setUserMeals } from "../../features/meals/mealsSlice";
 import Meal from "./Meal";
 
 
-
 function Meals({ user }) {
     const dispatch = useDispatch();
     const userMeals = useSelector((state) => state.meals.entities);
-    console.log(userMeals)
-    
 
     useEffect(() => {
         dispatch(setUserMeals(user.meals));
-    }, [dispatch])
+    }, [dispatch, user.meals])
 
     return (
         <div>
             {userMeals.map((meal) => {
                 return (
-                    <Meal key={meal.id} meal={meal} />
+                    <Meal key={ meal.id } meal={ meal } />
                 )
             })}
         </div>

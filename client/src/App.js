@@ -36,7 +36,7 @@ function App() {
           <>
             <Route path='/' element= { <UserTable user={ user } /> } />
             <Route path={`/users/${ user.id }/meals`} element={ <Meals user={ user } /> }/> 
-            <Route path='/meals/new' element= { <MealInput /> } />
+            <Route path={`/users/${ user.id }/meals/new`} element= { <MealInput /> } />
             <Route path='/exercises/new' element= { <ExerciseInput /> } />
           </>
         ) : (

@@ -2,10 +2,7 @@ import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 
 
 //create new meal
-export const addMeal = createAsyncThunk("meal/addMeal", async (body, { getState }) => {
-    const { auth } = getState();
-    const user_id = auth.user.id;
-    body.append("meal[user_id]", user_id);
+export const addMeal = createAsyncThunk("meal/addMeal", async (body) => {
 
     const resp = await fetch("/meals", {
         method: "POST",

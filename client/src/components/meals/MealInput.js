@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { addMealToUser } from "../../features/Auth/authSlice";
 import { addMeal, clearErrors } from "../../features/meals/mealsSlice";
 
 function MealInput() {
@@ -13,7 +14,7 @@ function MealInput() {
     
     const handleChange = (e) => {
         const { name, value } = e.target;
-        if (name === "image-upload") {
+        if (name === "image") {
             setFormData({ ...formData, image: e.target.files[0] });
         } else {
             setFormData({ ...formData, [name]: value });
@@ -27,17 +28,22 @@ function MealInput() {
 
         data.append("meal[name]", e.target.name.value);
         data.append("meal[calories]", e.target.calories.value);
+
         if (e.target.image.files[0] !== undefined ) {
             data.append("meal[image]", e.target.image.files[0]);
         }
        
-        dispatch(addMeal(data));
-        setFormData({
-            name: "",
-            calories: "",
-            image: null
+        dispatch(addMeal(data))
+        .then((data) => {
+            const meal = data.payload
+            dispatch(addMealToUser(meal));
+            setFormData({
+                name: "",
+                calories: "",
+                image: null
+            });
         });
-    }
+    };
 
     return (
         <div>

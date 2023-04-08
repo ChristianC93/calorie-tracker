@@ -1,4 +1,5 @@
 function UserTable({ user }) {
+
     return (
         <div>
             <h1>Welcome, { user.username }</h1>

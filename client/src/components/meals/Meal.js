@@ -6,7 +6,7 @@ function Meal({ meal }) {
             <p>Date: {new Date(meal.created_at).toLocaleDateString()}</p>
             <p>Calories: {meal.calories}</p>
         </div>
-    );
-};
+    )
+}
 
 export default Meal;

@@ -52,6 +52,7 @@ export const logout = createAsyncThunk("user/logout", async () => {
     })
 });
 
+
 const authSlice = createSlice({
     name: "auth",
     initialState: {
@@ -64,6 +65,9 @@ const authSlice = createSlice({
         resetError: (state) => {
             state.loading = false;
             state.error = null;
+        },
+        addMealToUser: (state, action) => {
+            state.user.meals.push(action.payload);
         }
     },
     extraReducers: {
@@ -113,6 +117,6 @@ const authSlice = createSlice({
     }
 });
 
-export const { resetError } = authSlice.actions;
+export const { resetError, addMealToUser } = authSlice.actions;
 
 export default authSlice.reducer;
