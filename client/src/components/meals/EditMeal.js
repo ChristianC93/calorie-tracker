@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { addUpdatedMealToUser } from "../../features/Auth/authSlice";
+import { editMeal } from "../../features/meals/mealsSlice";
 
-function EditMeal({ meal }) {
+function EditMeal({ meal, onClose }) {
     const dispatch = useDispatch();
     const [formData, setFormData] = useState({
         name: meal.name,
@@ -17,8 +19,13 @@ function EditMeal({ meal }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData)
-        dispatch(EditMeal(formData))
+        const updatedMeal = { id: meal.id, ...formData }
+        dispatch(editMeal(updatedMeal))
+        .then((data) => {
+            console.log(data.payload)
+            dispatch(addUpdatedMealToUser(data.payload))
+        })
+        onClose();
     };
 
     return (

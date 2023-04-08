@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 
-
 //create new meal
 export const addMeal = createAsyncThunk("meal/addMeal", async (body) => {
 
@@ -28,13 +27,13 @@ export const deleteMeal = createAsyncThunk("meal/deleteMeal", async (id) => {
     return id;
 });
 
-export const editMeal = createAsyncThunk("meal/editMeal", async (meal) => {
-    const resp = await fetch(`/meals/${meal.id}`, {
+export const editMeal = createAsyncThunk("meal/editMeal", async (obj) => {
+    const resp = await fetch(`/meals/${obj.id}`, {
         method: "PATCH",
         headers: {
             "Content-Type":"application/json"
         },
-        body: JSON.stringify(meal)
+        body: JSON.stringify(obj)
     });
     if (resp.ok) {
         return await resp.json();
@@ -69,6 +68,23 @@ const mealsSlice = createSlice({
             state.entities = [...state.entities, action.payload]
         },
         [addMeal.rejected](state, action) {
+            state.loading = false;
+            state.error = action.error.message;
+        },
+        [editMeal.pending](state) {
+            state.loading = true;
+        },
+        [editMeal.fulfilled](state, action) {
+            state.loading = false;
+            state.entities = state.entities.map((entity) => {
+                if (entity.id === action.payload.id) {
+                    return action.payload
+                } else {
+                    return entity;
+                }
+            });
+        },
+        [editMeal.rejected](state, action) {
             state.loading = false;
             state.error = action.error.message;
         },
