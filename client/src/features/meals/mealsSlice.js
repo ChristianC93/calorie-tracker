@@ -16,6 +16,18 @@ export const addMeal = createAsyncThunk("meal/addMeal", async (body) => {
     }
 });
 
+//delete meal
+export const deleteMeal = createAsyncThunk("meal/deleteMeal", async (id) => {
+    const resp = await fetch(`/meals/${id}`, {
+        method: "DELETE"
+    });
+    if (!resp.ok) {
+        const errorData = await resp.json();
+        throw new Error(errorData.errors.join(", "));
+    }
+    return id;
+});
+
 export const clearErrors = createAction("meal/clearErrors");
 
 const mealsSlice = createSlice({
@@ -43,6 +55,13 @@ const mealsSlice = createSlice({
         [addMeal.rejected](state, action) {
             state.loading = false;
             state.error = action.error.message;
+        },
+        [deleteMeal.pending](state) {
+            state.loading = true;
+        },
+        [deleteMeal.fulfilled](state, action) {
+            state.loading = false;
+            state.entities = state.entities.filter((entity) => entity !== action.payload)
         },
         [clearErrors](state) {
             state.error = null;

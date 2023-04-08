@@ -1,4 +1,16 @@
+import { useDispatch } from "react-redux";
+import { removeMealFromUser } from "../../features/Auth/authSlice";
+import { deleteMeal } from "../../features/meals/mealsSlice";
+
 function UserTable({ user }) {
+    const dispatch = useDispatch();
+
+    const handleDelete = (id) => {
+        dispatch(deleteMeal(id))
+        .then((id) => {
+            dispatch(removeMealFromUser(id))
+        });
+    };
 
     return (
         <div>
@@ -26,7 +38,7 @@ function UserTable({ user }) {
                             <button>Edit</button>
                         </td>
                         <td>
-                            <button>Delete</button>
+                            <button onClick={() => handleDelete(meal.id) }>Delete</button>
                         </td>
                         </tr>
                     ))}
