@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { updateTotalCaloriesByDate } from "../Auth/authSlice";
 
 
-export const addExercise = createAsyncThunk("exercise/addExercise", async (body) => {
+export const addExercise = createAsyncThunk("exercise/addExercise", async (body, thunkAPI) => {
    
     const resp = await fetch("/exercises", {
         method: "POST",
@@ -11,14 +12,24 @@ export const addExercise = createAsyncThunk("exercise/addExercise", async (body)
         body: JSON.stringify(body)
     });
     if (resp.ok) {
-        return await resp.json();
+        const exerciseData = await resp.json();
+
+        const userResp = await fetch("/my-page");
+        if (userResp.ok) {
+            const updatedUser = await userResp.json();
+            const payload = Object.fromEntries(
+                Object.entries(updatedUser.total_calories_by_date).map(([k, v]) => [k.toString(), v])
+            )
+            thunkAPI.dispatch(updateTotalCaloriesByDate(payload))
+        }
+        return exerciseData;
     } else {
         const errorData = await resp.json();
         throw new Error(errorData.errors.join(", "));
     }
 });
 
-export const removeExercise = createAsyncThunk("exercise/removeExercise", async (id) => {
+export const removeExercise = createAsyncThunk("exercise/removeExercise", async (id, thunkAPI) => {
     const resp = await fetch(`/exercises/${id}`, {
         method: "DELETE"
     });
@@ -26,6 +37,14 @@ export const removeExercise = createAsyncThunk("exercise/removeExercise", async 
         const errorData = await resp.json();
         throw new Error(errorData.errors.join(", "));
     }
+    const userResp = await fetch("/my-page");
+        if (userResp.ok) {
+            const updatedUser = await userResp.json();
+            const payload = Object.fromEntries(
+                Object.entries(updatedUser.total_calories_by_date).map(([k, v]) => [k.toString(), v])
+            )
+            thunkAPI.dispatch(updateTotalCaloriesByDate(payload))
+        }
     return id;
 });
 
