@@ -83,6 +83,9 @@ const authSlice = createSlice({
         removeExerciseFromUser: (state, action) => {
             const index = state.user.exercises.findIndex((exercise) => exercise.id === action.payload);
             state.user.exercises.splice(index, 1);
+        },
+        updateTotalCaloriesByDate: (state, action) => {
+            state.user.total_calories_by_date = action.payload;
         }
     },
     extraReducers: {
@@ -132,6 +135,6 @@ const authSlice = createSlice({
     }
 });
 
-export const { resetError, addMealToUser, addUpdatedMealToUser, removeMealFromUser, addExerciseToUser, removeExerciseFromUser } = authSlice.actions;
+export const { resetError, addMealToUser, addUpdatedMealToUser, removeMealFromUser, addExerciseToUser, removeExerciseFromUser, updateTotalCaloriesByDate } = authSlice.actions;
 
 export default authSlice.reducer;

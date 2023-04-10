@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { removeExerciseFromUser, removeMealFromUser } from "../../features/Auth/authSlice";
 import { removeExercise } from "../../features/exercises/exerciseSlice";
 import { deleteMeal } from "../../features/meals/mealsSlice";
@@ -8,7 +8,10 @@ import EditMeal from "../meals/EditMeal";
 function UserTable({ user }) {
     const dispatch = useDispatch();
     const [editingMealId, setEditingMealId] = useState(null);
-    const totalCaloriesByDateArray = Object.entries(user.total_calories_by_date);
+
+    const total_calories_by_date = useSelector((state) => state.auth.user.total_calories_by_date)
+    console.log(total_calories_by_date)
+    const totalCaloriesByDateArray = Object.entries(total_calories_by_date);
     console.log(totalCaloriesByDateArray)
 
     const handleEdit = (meal) => {

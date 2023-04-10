@@ -15,7 +15,7 @@ class ExercisesController < ApplicationController
 
   # POST /exercises
   def create
-    exercise = Exercise.new(exercise_params)
+    exercise = @current_user.exercises.new(exercise_params)
 
     if exercise.save!
       render json: exercise, status: :created
@@ -43,6 +43,6 @@ class ExercisesController < ApplicationController
     end
 
     def exercise_params
-      params.require(:exercise).permit(:user_id, :name, :calories_burned)
+      params.require(:exercise).permit(@current_user, :name, :calories_burned)
     end
 end

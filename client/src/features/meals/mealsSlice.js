@@ -1,14 +1,25 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
+import { updateTotalCaloriesByDate } from "../Auth/authSlice";
 
 //create new meal
-export const addMeal = createAsyncThunk("meal/addMeal", async (body) => {
+export const addMeal = createAsyncThunk("meal/addMeal", async (body, thunkAPI) => {
 
     const resp = await fetch("/meals", {
         method: "POST",
         body: body
     });
     if (resp.ok) {
-        return await resp.json();
+        const mealData = await resp.json();
+
+        const userResp = await fetch("/my-page");
+        if (userResp.ok) {
+            const updatedUser = await userResp.json();
+            const payload = Object.fromEntries(
+                Object.entries(updatedUser.total_calories_by_date).map(([k, v]) => [k.toString(), v])
+            )
+            thunkAPI.dispatch(updateTotalCaloriesByDate(payload))
+        }
+        return mealData;
     } else {
         const errorData = await resp.json();
         throw new Error(errorData.errors.join(", "));
@@ -16,7 +27,7 @@ export const addMeal = createAsyncThunk("meal/addMeal", async (body) => {
 });
 
 //delete meal
-export const deleteMeal = createAsyncThunk("meal/deleteMeal", async (id) => {
+export const deleteMeal = createAsyncThunk("meal/deleteMeal", async (id, thunkAPI) => {
     const resp = await fetch(`/meals/${id}`, {
         method: "DELETE"
     });
@@ -24,6 +35,14 @@ export const deleteMeal = createAsyncThunk("meal/deleteMeal", async (id) => {
         const errorData = await resp.json();
         throw new Error(errorData.errors.join(", "));
     }
+    const userResp = await fetch("/my-page");
+        if (userResp.ok) {
+            const updatedUser = await userResp.json();
+            const payload = Object.fromEntries(
+                Object.entries(updatedUser.total_calories_by_date).map(([k, v]) => [k.toString(), v])
+            )
+            thunkAPI.dispatch(updateTotalCaloriesByDate(payload))
+        }
     return id;
 });
 

@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   resources :users do 
     resources :meals
   end
+  resources :users do
+    resources :exercises
+  end 
   
  
   post "/signup", to: "users#create"
