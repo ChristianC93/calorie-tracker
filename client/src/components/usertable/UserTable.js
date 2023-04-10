@@ -8,6 +8,8 @@ import EditMeal from "../meals/EditMeal";
 function UserTable({ user }) {
     const dispatch = useDispatch();
     const [editingMealId, setEditingMealId] = useState(null);
+    const totalCaloriesByDateArray = Object.entries(user.total_calories_by_date);
+    console.log(totalCaloriesByDateArray)
 
     const handleEdit = (meal) => {
         setEditingMealId(meal.id);
@@ -92,6 +94,24 @@ function UserTable({ user }) {
                         <td>
                             <button onClick={() => handleExerciseDelete(exercise.id)}>Delete</button>
                         </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+
+                <h2>Total Calories By Date</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Total Calories</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {totalCaloriesByDateArray.map(([date, calories]) => (
+                        <tr key={date}>
+                        <td>{date}</td>
+                        <td>{calories}</td>
                         </tr>
                     ))}
                     </tbody>

@@ -8,7 +8,7 @@ A simple and user-friendly calorie tracker web application that helps users mana
 - Edit and delete functionality for meals
 
 ## Getting Started
-These instructions will help you set up the project on your local machine for development and testing purposes.
+These instructions will help you set up the application on your local machine for development and testing purposes.
 
 ## Prerequisites
 - Ruby 2.7 or higher
@@ -30,14 +30,12 @@ bundle install
 rails db:create
 rails db:migrate
 Start the Rails API server
-
 rails s
+
 In another terminal, navigate to the React client directory and install the frontend dependencies
 cd calorie-tracker-client
 npm install --prefix client
 Start the React development server
-sql
-Copy code
 npm start --prefix client
 Now, the Calorie Tracker application should be running on http://localhost:3000.
 
@@ -46,6 +44,3 @@ Now, the Calorie Tracker application should be running on http://localhost:3000.
 - React - The frontend library
 - Redux - State management for React
 - React-Router - Navigation for the React app
-
-## License
-This project is licensed under the MIT License. See the LICENSE file for details.
