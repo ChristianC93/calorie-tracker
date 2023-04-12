@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addUpdatedMealToUser } from "../../features/Auth/authSlice";
 import { editMeal } from "../../features/meals/mealsSlice";
 
 function EditMeal({ meal, onClose }) {
+    const error = useSelector((state) => state.meals.error);
     const dispatch = useDispatch();
     const [formData, setFormData] = useState({
         name: meal.name,
@@ -22,12 +23,11 @@ function EditMeal({ meal, onClose }) {
         const updatedMeal = { id: meal.id, ...formData }
         dispatch(editMeal(updatedMeal))
         .then((data) => {
-            console.log(data.payload)
             if (data.payload) {
                 dispatch(addUpdatedMealToUser(data.payload))
+                onClose();
             }
         })
-        onClose();
     };
 
     return (
@@ -44,6 +44,7 @@ function EditMeal({ meal, onClose }) {
                 <div>
                     <input type="submit" value="Submit" />
                 </div>
+                { error }
             </form>
         </div>
     )

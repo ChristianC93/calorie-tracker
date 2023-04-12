@@ -58,6 +58,7 @@ export const editMeal = createAsyncThunk("meal/editMeal", async (obj) => {
         return await resp.json();
     } else {
         const errorData = await resp.json();
+        console.log(errorData)
         throw new Error(errorData.errors.join(", "));
     }
 });
@@ -85,6 +86,7 @@ const mealsSlice = createSlice({
         [addMeal.fulfilled](state, action) {
             state.loading = false;
             state.entities = [...state.entities, action.payload]
+            state.error = null;
         },
         [addMeal.rejected](state, action) {
             state.loading = false;
@@ -102,6 +104,7 @@ const mealsSlice = createSlice({
                     return entity;
                 }
             });
+            state.error = null;
         },
         [editMeal.rejected](state, action) {
             state.loading = false;
@@ -113,6 +116,7 @@ const mealsSlice = createSlice({
         [deleteMeal.fulfilled](state, action) {
             state.loading = false;
             state.entities = state.entities.filter((entity) => entity !== action.payload)
+            state.error = null;
         },
         [clearErrors](state) {
             state.error = null;

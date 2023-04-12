@@ -24,11 +24,8 @@ class MealsController < ApplicationController
 
     # PATCH/PUT /meals/1
     def update
-      if @meal.update(meal_params)
-        render json: @meal
-      else
-        render json: @meal.errors, status: :unprocessable_entity
-      end
+      @meal.update!(meal_params)
+        render json: @meal, status: :ok
     end
 
     # DELETE /meals/1
