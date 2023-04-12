@@ -32,11 +32,13 @@ function MealInput() {
         if (e.target.image.files[0] !== undefined ) {
             data.append("meal[image]", e.target.image.files[0]);
         }
-       
+        
         dispatch(addMeal(data))
         .then((data) => {
             const meal = data.payload
-            dispatch(addMealToUser(meal));
+            if (meal) {
+                dispatch(addMealToUser(meal));
+            }
             setFormData({
                 name: "",
                 calories: "",

@@ -23,7 +23,9 @@ function ExerciseInput() {
         dispatch(addExercise(formData))
         .then((data) => {
             const exercise = data.payload
-            dispatch(addExerciseToUser(exercise))
+            if (exercise) {
+                dispatch(addExerciseToUser(exercise))
+            }
             setFormData({
                 name: "",
                 calories_burned: ""

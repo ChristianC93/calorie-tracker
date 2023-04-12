@@ -23,7 +23,9 @@ function EditMeal({ meal, onClose }) {
         dispatch(editMeal(updatedMeal))
         .then((data) => {
             console.log(data.payload)
-            dispatch(addUpdatedMealToUser(data.payload))
+            if (data.payload) {
+                dispatch(addUpdatedMealToUser(data.payload))
+            }
         })
         onClose();
     };

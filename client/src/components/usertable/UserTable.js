@@ -53,7 +53,7 @@ function UserTable({ user }) {
                     </tr>
                     </thead>
                     <tbody>
-                    {user.meals.map((meal) => (
+                    {user.meals?.map((meal) => (
                         <React.Fragment key={meal.id}>
                             <tr key={meal.id}>
                             <td>{meal.name}</td>
