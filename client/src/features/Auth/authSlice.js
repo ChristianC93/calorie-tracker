@@ -39,9 +39,6 @@ export const myPage = createAsyncThunk("user/my-page", async () => {
     const resp = await fetch("/my-page")
     if (resp.ok) {
         return await resp.json();
-    } else {
-        const errorData = await resp.json();
-        throw new Error(errorData.errors.join(", "))
     }
 })
 

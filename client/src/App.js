@@ -34,9 +34,7 @@ function App() {
   
   //auto login
   useEffect(() => {
-    if (hasSessionCookie()) {
-      dispatch(myPage());
-    }
+    dispatch(myPage());
   }, [ dispatch ])
   
   return (
