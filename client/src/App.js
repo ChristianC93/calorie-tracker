@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Login from './components/auth/Login';
 import NavBar from './components/nav/NavBar';
 import SignUp from './components/auth/SignUp';
@@ -14,14 +14,13 @@ import Meals from './components/meals/Meals';
 
 function App() {
   const user = useSelector((state) => state.auth.user);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (!user) {
-      navigate("/")
+      <Login />
     }
-  }, [navigate, user])
+  }, [user])
   
   //auto login
   useEffect(() => {

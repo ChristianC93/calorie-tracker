@@ -8,11 +8,9 @@ import EditMeal from "../meals/EditMeal";
 function UserTable({ user }) {
     const dispatch = useDispatch();
     const [editingMealId, setEditingMealId] = useState(null);
-
     const total_calories_by_date = useSelector((state) => state.auth.user.total_calories_by_date)
-    console.log(total_calories_by_date)
     const totalCaloriesByDateArray = Object.entries(total_calories_by_date);
-    console.log(totalCaloriesByDateArray)
+    
 
     const handleEdit = (meal) => {
         setEditingMealId(meal.id);

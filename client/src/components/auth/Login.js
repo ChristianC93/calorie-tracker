@@ -54,7 +54,7 @@ function Login() {
                     </label>
                     <br />
                     <input className='submit' type="submit" value="Log In" />
-                    <Link to="/signup"> Sign Up </Link>
+                    <Link to='/signup' key="signup-link"> Sign Up </Link>
                 </form>
                 { error }
         </div>
