@@ -21,10 +21,22 @@ function App() {
       <Login />
     }
   }, [user])
+
+  const hasSessionCookie = () => {
+    const cookies = document.cookie.split("; ");
+    for (const cookie of cookies) {
+      if (cookie.startsWith("_session_id")) {
+        return true;
+      }
+    }
+    return false;
+  }
   
   //auto login
   useEffect(() => {
-    dispatch(myPage());
+    if (hasSessionCookie()) {
+      dispatch(myPage());
+    }
   }, [ dispatch ])
   
   return (
