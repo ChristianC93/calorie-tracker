@@ -56,7 +56,9 @@ function Login() {
                     <input className='submit' type="submit" value="Log In" />
                     <Link to='/signup' key="signup-link"> Sign Up </Link>
                 </form>
-                { error }
+                <div className="error-message">
+                    { error }
+                </div>
         </div>
     );
 };
