@@ -106,3 +106,33 @@ th {
   margin: 0 auto;
   display: block;
 }
+
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+  }
+
+  nav a {
+    margin-bottom: 1em;
+  }
+}
+
+@media (max-width: 480px) {
+  .form {
+    padding: 15px;
+  }
+
+  .form input {
+    padding: 8px;
+  }
+
+  .submit {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  th,
+  td {
+    padding: 5px;
+  }
+}
