@@ -44,7 +44,9 @@ function EditMeal({ meal, onClose }) {
                 <div>
                     <input type="submit" value="Submit" />
                 </div>
-                { error }
+                <div className='error-message'>
+                    { error }
+                </div>
             </form>
         </div>
     )

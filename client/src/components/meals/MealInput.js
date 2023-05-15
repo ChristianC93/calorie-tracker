@@ -67,7 +67,9 @@ function MealInput() {
                     <input type="submit" value="Add Meal" />
                 </div>
             </form>
-            { error }
+            <div className='error-message'>
+                { error }
+            </div>
         </div>
     )
 };

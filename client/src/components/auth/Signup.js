@@ -58,7 +58,9 @@ function SignUp() {
         <br />
         <input type="submit" value="Sign Up" />
       </form>
-      { error }
+      <div className='error-message'>
+        { error }
+      </div>
     </div>
   );
   

@@ -49,7 +49,9 @@ function ExerciseInput() {
                 <br />
                 <input type="submit" value="Submit" />
             </form>
-            { error }
+            <div className='error-message'>
+                { error }
+            </div>
         </div>
     )
 };
