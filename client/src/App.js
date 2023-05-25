@@ -33,6 +33,9 @@ function App() {
     <div className="App">
       <div className='container'>
         { user && <NavBar user= { user } /> }
+        <div className='hero'>
+          <img src={ foodImage } alt='foodImage' />
+        </div>  
         <Routes>
           { user ? (
             <>
@@ -47,10 +50,7 @@ function App() {
               <Route path='/signup' element= { <SignUp /> } />
             </>
           )}
-        </Routes>
-        <div className='hero'>
-          <img src={foodImage} alt='foodImage' />
-        </div>      
+        </Routes>    
       </div>
     </div>
   );
