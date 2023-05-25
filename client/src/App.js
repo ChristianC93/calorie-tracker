@@ -10,6 +10,7 @@ import MealInput from './components/meals/MealInput';
 import ExerciseInput from './components/exercises/ExerciseInput';
 import UserTable from './components/usertable/UserTable';
 import Meals from './components/meals/Meals';
+import foodImage from './assets/food-image.jpg'
 
 
 function App() {
@@ -46,7 +47,10 @@ function App() {
               <Route path='/signup' element= { <SignUp /> } />
             </>
           )}
-        </Routes>      
+        </Routes>
+        <div className='hero'>
+          <img src={foodImage} alt='foodImage' />
+        </div>      
       </div>
     </div>
   );
