@@ -35,7 +35,7 @@ function Login() {
 
     return (
         <div className='form'>
-            <h2>Calorie Tracker</h2>
+            <h1>Calorie Tracker</h1>
                 <form className='form' onSubmit={ handleSubmit }>
                     <label>
                         Username:
