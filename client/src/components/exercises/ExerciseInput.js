@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addExerciseToUser } from "../../features/Auth/authSlice";
 import { addExercise } from "../../features/exercises/exerciseSlice";
+import exerciseImage from "../../assets/exercise-image.jpg"
 
 function ExerciseInput() {
     const dispatch = useDispatch();
@@ -36,6 +37,9 @@ function ExerciseInput() {
     return (
         <div>
             <h1>Add Today's Exercises</h1>
+            <div className='hero'>
+                <img src={ exerciseImage } alt='exerciseImage' />
+            </div>
             <form className="form" onSubmit={ handleSubmit } >
                 <label>
                     Name:
